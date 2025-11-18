@@ -1,0 +1,69 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('SCM Checkout') {
+            steps {
+                echo 'Checking out remote repo to Jenkins Local Workspace'
+                git 'https://github.com/Vyshnavi154/hello-world-war.git'
+            }
+        }
+
+        stage('Build Stage') {
+            steps {
+                echo 'Building WAR file from source code'
+                sh 'mvn clean package'
+               
+            }
+        }
+
+        stage('Test Stage') {
+            steps {
+                echo 'Executing Unit Tests'
+                // sh 'mvn test'
+            }
+        }
+
+       stage('Deploy Stage') {
+        steps {
+          script {
+              def serverIP = ""
+
+              if (env.GIT_BRANCH == "origin/master") {
+                serverIP = "13.201.5.148"
+            } else if (env.GIT_BRANCH == "origin/developer") {
+                serverIP = "13.235.82.52"
+            } else {
+                error "Deployment not configured for branch: ${env.GIT_BRANCH}"
+            }
+
+            echo "Deploying to server: ${serverIP}"
+
+            sshagent(['ec2-ssh-creds']) {
+                sh """
+                    ssh -o StrictHostKeyChecking=no ubuntu@${serverIP} "ls -lrt"
+
+                    scp -o StrictHostKeyChecking=no target/*.war ubuntu@${serverIP}:/home/ubuntu
+
+                    echo "Copy completed successfully."
+
+                    
+                """
+            }
+        }
+    }
+}
+
+    
+
+    post {
+        always {
+            echo 'Pipeline execution completed'
+        }
+        failure {
+            echo 'Pipeline execution failed'
+        }
+    }
+}
+}
