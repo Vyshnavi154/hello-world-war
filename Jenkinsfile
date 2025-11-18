@@ -40,7 +40,7 @@ pipeline {
 
             echo "Deploying to server: ${serverIP}"
 
-            sshagent(['ec2-ssh-creds']) {
+            sshagent(['9d8cc6e8-18eb-4b66-901d-8897eaa91d7c']) {
                 sh """
                     ssh -o StrictHostKeyChecking=no ubuntu@${serverIP} "ls -lrt"
 
@@ -57,13 +57,6 @@ pipeline {
 
     
 
-    post {
-        always {
-            echo 'Pipeline execution completed'
-        }
-        failure {
-            echo 'Pipeline execution failed'
-        }
-    }
+
 }
 }
