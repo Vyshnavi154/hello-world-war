@@ -40,9 +40,9 @@ jobs:
       id: set-server
       run: |
         if [[ "${{ github.ref }}" == "refs/heads/master" ]]; then
-          echo "SERVER_IP=13.201.5.148" >> $GITHUB_ENV
+          echo "SERVER_IP=65.2.126.222" >> $GITHUB_ENV
         elif [[ "${{ github.ref }}" == "refs/heads/developer" ]]; then
-          echo "SERVER_IP=13.235.82.52" >> $GITHUB_ENV
+          echo "SERVER_IP=3.110.185.145" >> $GITHUB_ENV
         else
           echo "Branch not configured for deployment"
           exit 1
