@@ -1,0 +1,33 @@
+name: Build and Deploy Java Application
+
+on:
+  workflow_dispatch:
+    
+  push:
+    branches:
+      - master
+      - gh_runner_setup
+    
+
+jobs:
+  build:
+    runs-on: self-hosted
+    # runs-on: self-hosted, Linux, X64, # <- Use the labels you assigned during configuration
+    steps:
+    - name: Checkout ${{ github.repository }}
+      uses: actions/checkout@v4
+      with:
+        repository: 'Vyshnavi154/hello-world-war.git'
+        ref: 'gh_runner_setup'
+
+    - name: Install pre-requisite (Java and Maven)
+      run: |
+        echo "## Verify Java installation" >> $GITHUB_STEP_SUMMARY
+        pwd
+        echo "PWD = $pwd"  >> $GITHUB_STEP_SUMMARY
+        ls -lrt >> $GITHUB_STEP_SUMMARY
+        echo "----------------------------" >> $GITHUB_STEP_SUMMARY
+        whoami
+        df -h >> $GITHUB_STEP_SUMMARY
+        sleep 100
+        
