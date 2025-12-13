@@ -13,8 +13,7 @@ jobs:
   testing_variables:
     runs-on: ubuntu-latest
     env:
-      os:Linux
-      
+      os: Linux
     steps:
       - name : Varible_check
         run : echo "My name is $name" >> $GITHUB_STEP_SUMMARY
