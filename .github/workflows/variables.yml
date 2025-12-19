@@ -32,4 +32,7 @@ jobs:
      - name: testing_variable
        run: |
         echo "repo: ${{ github.repository }}" >> $GITHUB_STEP_SUMMARY
-
+        echo "${{ github.workflow }}" >> $GITHUB_STEP_SUMMARY
+        echo "${{ github.triggering_actor }}" >> $GITHUB_STEP_SUMMARY
+        echo "${{ github.event.inputs.variable1 }}" >> $GITHUB_STEP_SUMMARY
+        echo "${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
