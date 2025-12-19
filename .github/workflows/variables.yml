@@ -1,0 +1,35 @@
+name: variable_usecase
+
+on:
+  workflow_dispatch:
+    inputs:
+      variable1:
+        description: Enter the variable
+        type: string
+        default: devops_var
+        required: true
+      deplloy_env:
+        description: Enter the target env
+        type: choice
+        options:
+            - qa
+            - prod
+            - pre-prod
+        default: qa
+
+        
+  push:
+    branches:
+      - master
+      - variables
+env:
+  name: Vysh
+
+jobs:
+  testing-variables:
+    runs-on: ubuntu-latest
+    steps:
+     - name: testing_variable
+       run: |
+        echo "repo: ${{ github.repository }}" >> $GITHUB_STEP_SUMMARY
+
