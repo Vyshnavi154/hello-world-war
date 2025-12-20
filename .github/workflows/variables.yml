@@ -24,6 +24,7 @@ on:
       - variables
 env:
   name: Vysh
+  servername: default
 
 jobs:
   testing-variables:
@@ -50,4 +51,14 @@ jobs:
        run : |
          echo "$(pwd)" >> $GITHUB_STEP_SUMMARY
          ls -lrt working_dir >> $GITHUB_STEP_SUMMARY
-         
+
+     - name: check
+       run: |
+        if [ "${{github.event_name}}" == "push"]; then
+          echo "servername=S1" >> $GITHUB_ENV
+        else
+          echo "servername=s2" >> $GITHUB_ENV
+     - name: print
+       run: echo "$servername"
+        
+        
