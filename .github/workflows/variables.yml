@@ -18,12 +18,10 @@ on:
         default: qa
 
         
-  push:
-    branches:
-      - master
-      - variables
+  
   schedule:
-  - cron: '21 4 * * *' 
+  - cron: '31 4 * * *'
+
 env:
   name: Vysh
   
