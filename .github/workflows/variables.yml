@@ -24,7 +24,7 @@ on:
       - variables
 env:
   name: Vysh
-  servername: default
+  
 
 jobs:
   testing-variables:
@@ -62,6 +62,6 @@ jobs:
           echo "servername=s3" >> $GITHUB_ENV
         fi
      - name: print
-       run: echo "$GITHUB_ENV" >> $GITHUB_STEP_SUMMARY
+       run: echo "$servername" >> $GITHUB_STEP_SUMMARY
         
         
