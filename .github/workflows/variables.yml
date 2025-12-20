@@ -22,8 +22,13 @@ on:
     branches:
       - master
       - variables
+  schedule:
+  - cron: ' 19 4 * * * ' 
 env:
   name: Vysh
+  
+
+
   
 
 jobs:
