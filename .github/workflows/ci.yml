@@ -11,7 +11,7 @@ on:
           type: string
           default: staging
       distribution:
-          required: true
+    
           type: string
           default: 'temurin'
 jobs:
