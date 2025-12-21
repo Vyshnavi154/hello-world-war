@@ -15,13 +15,16 @@ on:
           type: string
           default: 'temurin'
 jobs:
-  steps:
+  Checkout:
+   runs-on: ubuntu-latest
+   steps:
     - name: checkout repo
       uses: actions/checkout@v4
       with:
         path: my_dir
         fetch_depth: 0
         ref: master
+        
     - name: install 
       uses: actions/setup-java@v4
       with:
