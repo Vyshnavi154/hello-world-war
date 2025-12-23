@@ -26,7 +26,7 @@ jobs:
 
       - name: Build and analyze
         run: |
-          mvn clean verify \
+          mvn -U clean verify \
           org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
           -Dsonar.projectKey=hello-world-war \
           -Dsonar.organization=vyshnavi154 \
