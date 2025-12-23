@@ -28,8 +28,9 @@ jobs:
         run: |
           mvn clean verify \
           org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-          -Dsonar.branch.name=master
           -Dsonar.projectKey=vyshnavi154 \
-          -Dsonar.organization=Vyshnavi154 \
+          -Dsonar.organization=vyshnavi154 \
+          -Dsonar.branch.name=main \
           -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=${{ secrets.SONAR_SECRET }}
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+
