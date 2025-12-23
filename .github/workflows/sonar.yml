@@ -1,0 +1,32 @@
+name: SonarQube Scan
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+
+jobs:
+  sonar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: maven-${{ hashFiles('**/pom.xml') }}
+
+      - name: Build and analyze
+        run: mvn clean verify sonar:sonar \
+          -Dsonar.projectKey=vyshnavi154 \
+          -Dsonar.organization=Vyshnavi154 \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=${{ secrets.SONAR_SECRET }}
