@@ -27,5 +27,5 @@ jobs:
             -Dsonar.organization=vyshnavi154 \
             -Dsonar.branch.name=master \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.login=${{ secrets.MY_TOKEN }} \
             -Dsonar.scanner.forceReloadAll=true
