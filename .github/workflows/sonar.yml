@@ -1,36 +1,31 @@
-name: SonarQube Scan
+name: SonarCloud Connectivity Check
 
 on:
+  workflow_dispatch:   # manual trigger
   push:
     branches: [ master ]
-  pull_request:
 
 jobs:
-  sonar:
+  sonar-connectivity:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Set up JDK
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: temurin
+          java-version: 11
 
-      - name: Cache Maven packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2
-          key: maven-${{ hashFiles('**/pom.xml') }}
-
-      - name: Build and analyze
+      - name: SonarCloud Connectivity Test
         run: |
-          mvn -U clean verify \
-          org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-          -Dsonar.projectKey=hello-world-war \
-          -Dsonar.organization=vyshnavi154 \
-          -Dsonar.branch.name=master \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=${{ secrets.SONAR_SECRET }}
-
+          mvn -X \
+            org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+            -Dsonar.projectKey=hello-world-war \
+            -Dsonar.organization=vyshnavi154 \
+            -Dsonar.branch.name=master \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.scanner.forceReloadAll=true
