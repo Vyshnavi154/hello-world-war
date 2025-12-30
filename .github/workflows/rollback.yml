@@ -11,6 +11,7 @@ jobs:
       - name: 🔍 Step 1:Get Latest Version from Nexus
         id: check_env
         run: |
-          current_ver=$( curl -s -u "${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }}" \ "http://65.2.35.91:8081/service/rest/v1/search?repository=maven-releases&group=com.helloworld.app&name=World-war" \
-          | jq -r '.items[].version' \ sort -V \ tail -1 )
+          current_ver=$( curl -s -u "${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }}" \
+            "http://65.2.35.91:8081/service/rest/v1/search?repository=maven-releases&group=com.helloworld.app&name=World-war" \
+            | jq -r '.items[].version' | sort -V | tail -2 | head -1 )
           echo "current_version=$current_ver" >>$GITHUB_STEP_SUMMARY
